@@ -17,3 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group([
+    'prefix' => 'v1',
+    'as' => 'api.',
+    'namespace' => 'Api\V1',
+], function () {
+    Route::get('locks', 'LockController@index');
+    Route::get('locks/{lock:id}', 'LockController@show');
+    Route::post('locks/{lock:id}', 'LockController@store');
+    Route::put('locks/{lock:id}', 'LockController@update');
+    Route::delete('locks/{lock:id}', 'LockController@destroy');
+});
